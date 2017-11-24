@@ -28,6 +28,21 @@ var albumMarconi = {
         { title: 'Wrong phone number', duration: '2:15'}
     ]
 };
+// Another Example Album
+var albumWhitney = {
+    title: 'I wanna dance with somebody',
+    artist: 'Whitney Houston',
+    label: 'Dance',
+    year: '1990',
+    albumArtUrl: 'assets/images/album_covers/21.png',
+    songs: [
+        { title: 'So emotional', duration: '1:01' },
+        { title: 'How will I know', duration: '5:01' },
+        { title: 'I wanna dance with somebody', duration: '3:21'},
+        { title: 'Dance', duration: '3:14' },
+        { title: 'I will always love you', duration: '2:15'}
+    ]
+};
 
 var createSongRow = function(songNumber, songName, songLength) {
     var template =
@@ -41,16 +56,14 @@ var createSongRow = function(songNumber, songName, songLength) {
     return template;
 };
 
-var setCurrentAlbum = function(album) {
-    // #1
-    var albumTitle = document.getElementsByClassName('album-view-title')[0];
-    var albumArtist = document.getElementsByClassName('album-view-artist')[0];
-    var albumReleaseInfo = document.getElementsByClassName('album-view-release-info')[0];
-    var albumImage = document.getElementsByClassName('album-cover-art')[0];
-    var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
+var albumTitle = document.getElementsByClassName('album-view-title')[0];
+var albumArtist = document.getElementsByClassName('album-view-artist')[0];
+var albumReleaseInfo = document.getElementsByClassName('album-view-release-info')[0];
+var albumImage = document.getElementsByClassName('album-cover-art')[0];
+var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
 
-    // #2
-    albumTitle.firstChild.nodeValue = album.title;
+var setCurrentAlbum = function(album) {
+    albumTitle.firstChild.nodeValue = album.name;
     albumArtist.firstChild.nodeValue = album.artist;
     albumReleaseInfo.firstChild.nodeValue = album.year + ' ' + album.label;
     albumImage.setAttribute('src', album.albumArtUrl);
@@ -66,4 +79,13 @@ var setCurrentAlbum = function(album) {
 
 window.onload = function() {
     setCurrentAlbum(albumPicasso);
+    var albums = [albumPicasso, albumMarconi, albumWhitney];
+    var index = 1;
+    albumImage.addEventListener("click", function(event) {
+      setCurrentAlbum(albums[index]);
+      index++;
+      if (index == albums.length) {
+        index = 0;
+      }
+    });
 };
